@@ -27,6 +27,11 @@
      body: RandomData.random_paragraph
    )
  end
+
+Post.find_or_create_by(title: "title", body: "body")
+
+Comment.find_or_create_by(body: "unique body") 
+
  
  puts "Seed finished"
  puts "#{Post.count} posts created"
