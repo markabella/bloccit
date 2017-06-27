@@ -8,13 +8,22 @@
  require 'random_data'
 
  # Create Posts
+# count = -1
  50.times do
- 
+#  count += 1
+#  if (count%5==0)
+#   Post.create!(
+#
+#     title:  "SPAM",
+#     body:   RandomData.random_paragraph
+#   )
+#  else 
    Post.create!(
 
      title:  RandomData.random_sentence,
      body:   RandomData.random_paragraph
    )
+#  end
  end
  posts = Post.all
  
@@ -22,7 +31,7 @@
 
  100.times do
    Comment.create!(
- # #4
+
      post: posts.sample,
      body: RandomData.random_paragraph
    )
