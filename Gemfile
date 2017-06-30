@@ -5,6 +5,7 @@ gem 'rails', '4.2.5'
 gem 'pg'
 gem 'rails_12factor'
 gem 'bootstrap-sass'
+gem 'bcrypt'
 
  group :development, :test do
    gem 'rspec-rails', '~> 3.0'
