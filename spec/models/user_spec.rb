@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
    let(:user) { create(:user) }
+   let(:topic) { create(:topic) }
    
    it { is_expected.to have_many(:posts) }
    it { is_expected.to have_many(:comments) }
@@ -110,4 +111,42 @@ RSpec.describe User, type: :model do
        expect(known_user.avatar_url(48)).to eq(expected_gravatar)
      end
    end
- end
+   
+
+   describe "#has_posts" do
+     it "returns false if user has no posts" do
+       expect(user.has_posts?).to eq false
+     end  
+
+     it "returns true if user has posts" do
+       @post = topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)
+       expect(user.has_posts?).to eq true
+     end
+   end
+
+   describe "#has_comments" do 
+     it "returns false if user has no comments" do
+       expect(user.has_comments?).to eq false
+     end
+
+     it "returns true if user has comments" do
+       @post = topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)
+       Comment.create!(user: user, post: @post, body: RandomData.random_paragraph)
+       expect(user.has_comments?).to eq true
+     end
+   end
+
+   describe "#has_favorites" do
+     it "returns false if user has no favorites" do
+       expect(user.has_favorites?).to eq false
+     end
+
+     it "returns true if user has favorites" do
+       @post = topic.posts.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, user: user)
+       Favorite.create!(user: user, post: @post)
+       expect(user.has_favorites?).to eq true
+     end
+   end
+
+end
+   
